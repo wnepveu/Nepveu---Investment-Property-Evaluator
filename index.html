@@ -3,66 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>William Nepveu’s Investment Property Evaluator</title>
+    <title>William Nepveu - Investment Property Evaluator</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <header>
         <h1>William Nepveu’s Investment Property Evaluator</h1>
+        <h2>Analyze Real Estate Investments Instantly</h2>
     </header>
 
     <div class="container">
-
-        <!-- INPUT SIDEBAR -->
+        <!-- Sidebar Inputs -->
         <div class="sidebar">
-            <h2>Inputs</h2>
-
-            <label>Property Value ($):</label>
+            <label for="propertyValue">Property Value ($):</label>
             <input type="number" id="propertyValue" value="300000">
 
-            <label>Down Payment:</label>
-            <div class="dp-row">
-                <input type="number" id="downPayment" value="60000">
-                <select id="dpType">
-                    <option value="amount">$</option>
-                    <option value="percent">%</option>
-                </select>
-            </div>
+            <label for="downPayment">Down Payment:</label>
+            <input type="number" id="downPayment" value="20">
+            <select id="dpType">
+                <option value="percent">%</option>
+                <option value="dollar">$</option>
+            </select>
 
-            <label>Interest Rate (%):</label>
-            <input type="number" id="interestRate" value="6">
+            <label for="interestRate">Interest Rate (%):</label>
+            <input type="number" id="interestRate" value="4.5" step="0.01">
 
-            <label>Loan Term (Years):</label>
+            <label for="loanTerm">Loan Term (Years):</label>
             <input type="number" id="loanTerm" value="30">
 
-            <label>Gross Monthly Rent ($):</label>
-            <input type="number" id="rent" value="2500">
+            <label for="rent">Gross Monthly Rent ($):</label>
+            <input type="number" id="rent" value="2000">
 
-            <label>Operating Expense Ratio (%):</label>
+            <label for="expenseRatio">Operating Expense Ratio (%):</label>
             <input type="number" id="expenseRatio" value="30">
 
-            <button onclick="calculate()">Calculate</button>
+            <button id="calculateBtn">Calculate</button>
         </div>
 
-        <!-- OUTPUT SECTION -->
+        <!-- Results -->
         <div class="results">
-            <h2>Performance Results</h2>
+            <h3>Performance & Market</h3>
+            <p>Loan Amount: <span id="loanAmount">$0</span></p>
+            <p>Mortgage Payment: <span id="mortgagePayment">$0</span></p>
+            <p>Monthly Cash Flow: <span id="monthlyCashFlow">$0</span></p>
+            <p>Cash-on-Cash Return: <span id="cocReturn">0%</span></p>
+            <p>Cap Rate: <span id="capRate">0%</span></p>
 
-            <div class="result-box">
-                <p><strong>Loan Amount:</strong> $<span id="loanAmount"></span></p>
-                <p><strong>Mortgage Payment:</strong> $<span id="mortgagePayment"></span></p>
-                <p><strong>Monthly Cash Flow:</strong> $<span id="monthlyCashFlow"></span></p>
-                <p><strong>Cash-on-Cash Return:</strong> <span id="cocReturn"></span>%</p>
-                <p><strong>Cap Rate:</strong> <span id="capRate"></span>%</p>
-            </div>
-
-            <h2>Amortization Schedule</h2>
+            <h3>Amortization Schedule</h3>
             <div class="table-container">
                 <table id="amortTable">
                     <thead>
                         <tr>
-                            <th>Pmt #</th>
+                            <th>Month</th>
                             <th>Beginning Balance</th>
                             <th>Payment</th>
                             <th>Principal</th>
@@ -70,13 +62,17 @@
                             <th>Ending Balance</th>
                         </tr>
                     </thead>
-                    <tbody></tbody>
+                    <tbody>
+                        <!-- Table rows will be added here -->
+                    </tbody>
                 </table>
             </div>
-
         </div>
-
     </div>
+
+    <footer>
+        <p>William Nepveu — FIN 351 | Spring 2026</p>
+    </footer>
 
     <script src="script.js"></script>
 </body>
