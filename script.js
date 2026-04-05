@@ -43,9 +43,15 @@ function calculate() {
     // UPDATE RESULTS
     document.getElementById("loanAmount").innerText = loanAmount.toFixed(2);
     document.getElementById("mortgagePayment").innerText = mortgagePayment.toFixed(2);
-    let monthlyCashFlowEl = document.getElementById("monthlyCashFlow");
+let monthlyCashFlowEl = document.getElementById("monthlyCashFlow");
 monthlyCashFlowEl.innerText = monthlyCashFlow.toFixed(2);
-monthlyCashFlowEl.style.color = monthlyCashFlow >= 0 ? "green" : "red";
+
+// Color coding: green for positive, red for negative
+if (monthlyCashFlow >= 0) {
+    monthlyCashFlowEl.style.color = "green";
+} else {
+    monthlyCashFlowEl.style.color = "red";
+}
     document.getElementById("cocReturn").innerText = cocReturn.toFixed(2);
     document.getElementById("capRate").innerText = capRate.toFixed(2);
 
