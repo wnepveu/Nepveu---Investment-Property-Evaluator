@@ -67,13 +67,14 @@ document.getElementById("annualCashFlow").innerText = annualCashFlow.toLocaleStr
 
         let row = table.insertRow();
         row.innerHTML = `
-            <td>${i}</td>
-            <td>${balance.toFixed(2)}</td>
-            <td>${mortgagePayment.toFixed(2)}</td>
-            <td>${principalPayment.toFixed(2)}</td>
-            <td>${interestPayment.toFixed(2)}</td>
-            <td>${endingBalance.toFixed(2)}</td>
-        `;
+        row.innerHTML = `
+    <td>${i}</td>
+    <td>${balance.toLocaleString("en-US", {style: "currency", currency: "USD"})}</td>
+    <td>${mortgagePayment.toLocaleString("en-US", {style: "currency", currency: "USD"})}</td>
+    <td>${principalPayment.toLocaleString("en-US", {style: "currency", currency: "USD"})}</td>
+    <td>${interestPayment.toLocaleString("en-US", {style: "currency", currency: "USD"})}</td>
+    <td>${endingBalance.toLocaleString("en-US", {style: "currency", currency: "USD"})}</td>
+`;
 
         balance = endingBalance;
 
