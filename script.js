@@ -41,17 +41,15 @@ function calculate() {
     let capRate = ((noi * 12) / propertyValue) * 100;
 
     // UPDATE RESULTS
-    document.getElementById("loanAmount").innerText = loanAmount.toFixed(2);
-    document.getElementById("mortgagePayment").innerText = mortgagePayment.toFixed(2);
+    document.getElementById("loanAmount").innerText = loanAmount.toLocaleString("en-US", {style: "currency", currency: "USD"});
+document.getElementById("mortgagePayment").innerText = mortgagePayment.toLocaleString("en-US", {style: "currency", currency: "USD"});
 let monthlyCashFlowEl = document.getElementById("monthlyCashFlow");
-monthlyCashFlowEl.innerText = monthlyCashFlow.toFixed(2);
+monthlyCashFlowEl.innerText = monthlyCashFlow.toLocaleString("en-US", {style: "currency", currency: "USD"});
 
 // Color coding: green for positive, red for negative
-if (monthlyCashFlow >= 0) {
-    monthlyCashFlowEl.style.color = "green";
-} else {
-    monthlyCashFlowEl.style.color = "red";
-}
+monthlyCashFlowEl.style.color = monthlyCashFlow >= 0 ? "green" : "red";
+
+document.getElementById("annualCashFlow").innerText = annualCashFlow.toLocaleString("en-US", {style: "currency", currency: "USD"});
     document.getElementById("cocReturn").innerText = cocReturn.toFixed(2);
     document.getElementById("capRate").innerText = capRate.toFixed(2);
 
