@@ -7,7 +7,7 @@ body {
 header {
     background: #1f3c88;
     color: white;
-    padding: 20px;
+    padding: 15px;
     text-align: center;
 }
 
@@ -106,4 +106,30 @@ th, td {
 
 table tr:hover {
     background-color: #dbe4f7;
+}
+/* Table background color */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #f2f2f2;  /* light gray */
+}
+
+/* Header styling */
+th {
+    background-color: #d9d9d9; /* slightly darker gray for headers */
+    padding: 8px;
+    border: 1px solid #ccc;
+    text-align: right;
+}
+
+/* Cell styling */
+td {
+    padding: 8px;
+    border: 1px solid #ccc;
+    text-align: right;
+}
+
+/* Row hover effect */
+table tr:hover {
+    background-color: #dbe4f7; /* light blue on hover */
 }
