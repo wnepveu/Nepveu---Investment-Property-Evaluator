@@ -77,3 +77,19 @@
     <script src="script.js"></script>
 </body>
 </html>
+<!-- Toggle Button -->
+<button id="toggle-expenses-btn">Show Detailed Expenses</button>
+
+<!-- Hidden Detailed Expense Section -->
+<div id="detailed-expenses" style="display:none; margin-top:15px;">
+  <label>Taxes: <input type="number" id="taxes" value="0"></label><br>
+  <label>Insurance: <input type="number" id="insurance" value="0"></label><br>
+  <label>Maintenance: <input type="number" id="maintenance" value="0"></label><br>
+</div>
+
+<!-- Operating Expense Ratio Display -->
+<div style="margin-top:15px;">
+  <label>Operating Expense Ratio %:
+    <input type="text" id="op-expense-ratio" readonly>
+  </label>
+</div>
