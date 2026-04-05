@@ -1,3 +1,7 @@
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("calculateBtn").addEventListener("click", calculate);
+});
+
 function calculate() {
     // INPUTS
     let propertyValue = parseFloat(document.getElementById("propertyValue").value);
@@ -8,46 +12,28 @@ function calculate() {
     let rent = parseFloat(document.getElementById("rent").value);
     let expenseRatio = parseFloat(document.getElementById("expenseRatio").value) / 100;
 
-    // DOWN PAYMENT CALCULATION
     if (dpType === "percent") {
         downPayment = propertyValue * (downPayment / 100);
     }
 
-    // LOAN AMOUNT
+    // LOAN AMOUNT & MORTGAGE
     let loanAmount = propertyValue - downPayment;
-
-    // MORTGAGE FORMULA
     let r = interestRate / 12;
     let n = loanTerm * 12;
-
     let mortgagePayment = loanAmount * (r * Math.pow(1+r, n)) / (Math.pow(1+r, n) - 1);
 
-    // EXPENSES
+    // CASH FLOW & PERFORMANCE
     let expenses = rent * expenseRatio;
-
-    // NET OPERATING INCOME (NOI)
     let noi = rent - expenses;
-
-    // MONTHLY CASH FLOW
     let monthlyCashFlow = noi - mortgagePayment;
-
-    // ANNUAL CASH FLOW
     let annualCashFlow = monthlyCashFlow * 12;
-
-    // CASH-ON-CASH RETURN
     let cocReturn = (annualCashFlow / downPayment) * 100;
-
-    // CAP RATE
     let capRate = (noi * 12 / propertyValue) * 100;
 
-    // ===============================
-    // UPDATE RESULTS WITH FORMATTING
-    // ===============================
-
+    // UPDATE RESULTS
     document.getElementById("loanAmount").innerText = loanAmount.toLocaleString("en-US", {style: "currency", currency: "USD"});
     document.getElementById("mortgagePayment").innerText = mortgagePayment.toLocaleString("en-US", {style: "currency", currency: "USD"});
 
-    // Monthly Cash Flow with color coding
     let monthlyCashFlowEl = document.getElementById("monthlyCashFlow");
     monthlyCashFlowEl.innerText = monthlyCashFlow.toLocaleString("en-US", {style: "currency", currency: "USD"});
     monthlyCashFlowEl.style.color = monthlyCashFlow >= 0 ? "green" : "red";
@@ -55,20 +41,17 @@ function calculate() {
     document.getElementById("cocReturn").innerText = cocReturn.toFixed(2) + "%";
     document.getElementById("capRate").innerText = capRate.toFixed(2) + "%";
 
-    // ===============================
     // AMORTIZATION TABLE
-    // ===============================
-    let balance = loanAmount;
-    let table = document.getElementById("amortTable").getElementsByTagName("tbody")[0];
-    table.innerHTML = ""; // clear previous table
+    let tableBody = document.getElementById("amortTable").getElementsByTagName("tbody")[0];
+    tableBody.innerHTML = "";
 
+    let balance = loanAmount;
     for (let i = 1; i <= n; i++) {
         let interestPayment = balance * r;
         let principalPayment = mortgagePayment - interestPayment;
         let endingBalance = balance - principalPayment;
 
-        // Insert row with formatted currency
-        let row = table.insertRow();
+        let row = tableBody.insertRow();
         row.innerHTML = `
             <td>${i}</td>
             <td>${balance.toLocaleString("en-US", {style: "currency", currency: "USD"})}</td>
@@ -79,6 +62,6 @@ function calculate() {
         `;
 
         balance = endingBalance;
-        if (balance <= 0) break; // stop loop when loan is fully paid
+        if (balance <= 0) break;
     }
 }
