@@ -85,3 +85,6 @@ td {
 tr:nth-child(even) {
     background: #f7f9fc;
 }
+table tr:hover {
+    background-color: #dbe4f7; /* light blue on hover */
+}
