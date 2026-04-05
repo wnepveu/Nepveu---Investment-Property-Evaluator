@@ -8,7 +8,7 @@ function calculate() {
     let rent = parseFloat(document.getElementById("rent").value);
     let expenseRatio = parseFloat(document.getElementById("expenseRatio").value) / 100;
 
-    // DOWN PAYMENT CALC
+    // DOWN PAYMENT CALCULATION
     if (dpType === "percent") {
         downPayment = propertyValue * (downPayment / 100);
     }
@@ -25,7 +25,7 @@ function calculate() {
     // EXPENSES
     let expenses = rent * expenseRatio;
 
-    // NOI
+    // NET OPERATING INCOME (NOI)
     let noi = rent - expenses;
 
     // MONTHLY CASH FLOW
@@ -38,46 +38,47 @@ function calculate() {
     let cocReturn = (annualCashFlow / downPayment) * 100;
 
     // CAP RATE
-    let capRate = ((noi * 12) / propertyValue) * 100;
-
-    // UPDATE RESULTS
-    document.getElementById("loanAmount").innerText = loanAmount.toLocaleString("en-US", {style: "currency", currency: "USD"});
-document.getElementById("mortgagePayment").innerText = mortgagePayment.toLocaleString("en-US", {style: "currency", currency: "USD"});
-let monthlyCashFlowEl = document.getElementById("monthlyCashFlow");
-monthlyCashFlowEl.innerText = monthlyCashFlow.toLocaleString("en-US", {style: "currency", currency: "USD"});
-
-// Color coding: green for positive, red for negative
-monthlyCashFlowEl.style.color = monthlyCashFlow >= 0 ? "green" : "red";
-
-document.getElementById("annualCashFlow").innerText = annualCashFlow.toLocaleString("en-US", {style: "currency", currency: "USD"});
-    document.getElementById("cocReturn").innerText = cocReturn.toFixed(2);
-    document.getElementById("capRate").innerText = capRate.toFixed(2);
+    let capRate = (noi * 12 / propertyValue) * 100;
 
     // ===============================
-    //   AMORTIZATION TABLE
+    // UPDATE RESULTS WITH FORMATTING
+    // ===============================
+
+    document.getElementById("loanAmount").innerText = loanAmount.toLocaleString("en-US", {style: "currency", currency: "USD"});
+    document.getElementById("mortgagePayment").innerText = mortgagePayment.toLocaleString("en-US", {style: "currency", currency: "USD"});
+
+    // Monthly Cash Flow with color coding
+    let monthlyCashFlowEl = document.getElementById("monthlyCashFlow");
+    monthlyCashFlowEl.innerText = monthlyCashFlow.toLocaleString("en-US", {style: "currency", currency: "USD"});
+    monthlyCashFlowEl.style.color = monthlyCashFlow >= 0 ? "green" : "red";
+
+    document.getElementById("cocReturn").innerText = cocReturn.toFixed(2) + "%";
+    document.getElementById("capRate").innerText = capRate.toFixed(2) + "%";
+
+    // ===============================
+    // AMORTIZATION TABLE
     // ===============================
     let balance = loanAmount;
     let table = document.getElementById("amortTable").getElementsByTagName("tbody")[0];
-    table.innerHTML = "";
+    table.innerHTML = ""; // clear previous table
 
     for (let i = 1; i <= n; i++) {
         let interestPayment = balance * r;
         let principalPayment = mortgagePayment - interestPayment;
         let endingBalance = balance - principalPayment;
 
+        // Insert row with formatted currency
         let row = table.insertRow();
         row.innerHTML = `
-        row.innerHTML = `
-    <td>${i}</td>
-    <td>${balance.toLocaleString("en-US", {style: "currency", currency: "USD"})}</td>
-    <td>${mortgagePayment.toLocaleString("en-US", {style: "currency", currency: "USD"})}</td>
-    <td>${principalPayment.toLocaleString("en-US", {style: "currency", currency: "USD"})}</td>
-    <td>${interestPayment.toLocaleString("en-US", {style: "currency", currency: "USD"})}</td>
-    <td>${endingBalance.toLocaleString("en-US", {style: "currency", currency: "USD"})}</td>
-`;
+            <td>${i}</td>
+            <td>${balance.toLocaleString("en-US", {style: "currency", currency: "USD"})}</td>
+            <td>${mortgagePayment.toLocaleString("en-US", {style: "currency", currency: "USD"})}</td>
+            <td>${principalPayment.toLocaleString("en-US", {style: "currency", currency: "USD"})}</td>
+            <td>${interestPayment.toLocaleString("en-US", {style: "currency", currency: "USD"})}</td>
+            <td>${endingBalance.toLocaleString("en-US", {style: "currency", currency: "USD"})}</td>
+        `;
 
         balance = endingBalance;
-
-        if (balance < 0) break;
+        if (balance <= 0) break; // stop loop when loan is fully paid
     }
 }
