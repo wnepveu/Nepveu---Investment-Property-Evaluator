@@ -43,7 +43,9 @@ function calculate() {
     // UPDATE RESULTS
     document.getElementById("loanAmount").innerText = loanAmount.toFixed(2);
     document.getElementById("mortgagePayment").innerText = mortgagePayment.toFixed(2);
-    document.getElementById("monthlyCashFlow").innerText = monthlyCashFlow.toFixed(2);
+    let monthlyCashFlowEl = document.getElementById("monthlyCashFlow");
+monthlyCashFlowEl.innerText = monthlyCashFlow.toFixed(2);
+monthlyCashFlowEl.style.color = monthlyCashFlow >= 0 ? "green" : "red";
     document.getElementById("cocReturn").innerText = cocReturn.toFixed(2);
     document.getElementById("capRate").innerText = capRate.toFixed(2);
 
