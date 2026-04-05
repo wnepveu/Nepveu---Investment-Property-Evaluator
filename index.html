@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>William Nepveu’s Investment Property Evaluator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>William Nepveu’s Investment Property Evaluator</h1>
+    </header>
+
+    <div class="container">
+
+        <!-- INPUT SIDEBAR -->
+        <div class="sidebar">
+            <h2>Inputs</h2>
+
+            <label>Property Value ($):</label>
+            <input type="number" id="propertyValue" value="300000">
+
+            <label>Down Payment:</label>
+            <div class="dp-row">
+                <input type="number" id="downPayment" value="60000">
+                <select id="dpType">
+                    <option value="amount">$</option>
+                    <option value="percent">%</option>
+                </select>
+            </div>
+
+            <label>Interest Rate (%):</label>
+            <input type="number" id="interestRate" value="6">
+
+            <label>Loan Term (Years):</label>
+            <input type="number" id="loanTerm" value="30">
+
+            <label>Gross Monthly Rent ($):</label>
+            <input type="number" id="rent" value="2500">
+
+            <label>Operating Expense Ratio (%):</label>
+            <input type="number" id="expenseRatio" value="30">
+
+            <button onclick="calculate()">Calculate</button>
+        </div>
+
+        <!-- OUTPUT SECTION -->
+        <div class="results">
+            <h2>Performance Results</h2>
+
+            <div class="result-box">
+                <p><strong>Loan Amount:</strong> $<span id="loanAmount"></span></p>
+                <p><strong>Mortgage Payment:</strong> $<span id="mortgagePayment"></span></p>
+                <p><strong>Monthly Cash Flow:</strong> $<span id="monthlyCashFlow"></span></p>
+                <p><strong>Cash-on-Cash Return:</strong> <span id="cocReturn"></span>%</p>
+                <p><strong>Cap Rate:</strong> <span id="capRate"></span>%</p>
+            </div>
+
+            <h2>Amortization Schedule</h2>
+            <div class="table-container">
+                <table id="amortTable">
+                    <thead>
+                        <tr>
+                            <th>Pmt #</th>
+                            <th>Beginning Balance</th>
+                            <th>Payment</th>
+                            <th>Principal</th>
+                            <th>Interest</th>
+                            <th>Ending Balance</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
