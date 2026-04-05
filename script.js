@@ -1,7 +1,34 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("calculateBtn").addEventListener("click", calculate);
+
+    // Listen for detailed expenses changing
+    ["taxes", "insurance", "maintenance"].forEach(id => {
+        let el = document.getElementById(id);
+        if (el) el.addEventListener("input", updateExpenseRatioFromDetails);
+    });
 });
 
+/* -----------------------------
+   UPDATE EXPENSE RATIO FROM DETAILED INPUTS
+--------------------------------*/
+function updateExpenseRatioFromDetails() {
+    let rent = parseFloat(document.getElementById("rent").value) || 0;
+
+    let taxes = parseFloat(document.getElementById("taxes").value) || 0;
+    let insurance = parseFloat(document.getElementById("insurance").value) || 0;
+    let maintenance = parseFloat(document.getElementById("maintenance").value) || 0;
+
+    let totalDetailedExpenses = taxes + insurance + maintenance;
+
+    // Avoid divide-by-zero
+    let ratio = rent > 0 ? (totalDetailedExpenses / rent) * 100 : 0;
+
+    document.getElementById("expenseRatio").value = ratio.toFixed(2);
+}
+
+/* -----------------------------
+   MAIN CALCULATE FUNCTION
+--------------------------------*/
 function calculate() {
     // INPUTS
     let propertyValue = parseFloat(document.getElementById("propertyValue").value);
@@ -12,6 +39,7 @@ function calculate() {
     let rent = parseFloat(document.getElementById("rent").value);
     let expenseRatio = parseFloat(document.getElementById("expenseRatio").value) / 100;
 
+    // Convert down payment if percent
     if (dpType === "percent") {
         downPayment = propertyValue * (downPayment / 100);
     }
@@ -20,7 +48,8 @@ function calculate() {
     let loanAmount = propertyValue - downPayment;
     let r = interestRate / 12;
     let n = loanTerm * 12;
-    let mortgagePayment = loanAmount * (r * Math.pow(1+r, n)) / (Math.pow(1+r, n) - 1);
+    let mortgagePayment =
+        loanAmount * (r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
 
     // CASH FLOW & PERFORMANCE
     let expenses = rent * expenseRatio;
@@ -31,18 +60,24 @@ function calculate() {
     let capRate = (noi * 12 / propertyValue) * 100;
 
     // UPDATE RESULTS
-    document.getElementById("loanAmount").innerText = loanAmount.toLocaleString("en-US", {style: "currency", currency: "USD"});
-    document.getElementById("mortgagePayment").innerText = mortgagePayment.toLocaleString("en-US", {style: "currency", currency: "USD"});
+    document.getElementById("loanAmount").innerText =
+        loanAmount.toLocaleString("en-US", { style: "currency", currency: "USD" });
+
+    document.getElementById("mortgagePayment").innerText =
+        mortgagePayment.toLocaleString("en-US", { style: "currency", currency: "USD" });
 
     let monthlyCashFlowEl = document.getElementById("monthlyCashFlow");
-    monthlyCashFlowEl.innerText = monthlyCashFlow.toLocaleString("en-US", {style: "currency", currency: "USD"});
+    monthlyCashFlowEl.innerText =
+        monthlyCashFlow.toLocaleString("en-US", { style: "currency", currency: "USD" });
     monthlyCashFlowEl.style.color = monthlyCashFlow >= 0 ? "green" : "red";
 
     document.getElementById("cocReturn").innerText = cocReturn.toFixed(2) + "%";
     document.getElementById("capRate").innerText = capRate.toFixed(2) + "%";
 
     // AMORTIZATION TABLE
-    let tableBody = document.getElementById("amortTable").getElementsByTagName("tbody")[0];
+    let tableBody = document
+        .getElementById("amortTable")
+        .getElementsByTagName("tbody")[0];
     tableBody.innerHTML = "";
 
     let balance = loanAmount;
