@@ -1,33 +1,37 @@
 document.addEventListener("DOMContentLoaded", function() {
+    // Calculate button
     document.getElementById("calculateBtn").addEventListener("click", calculate);
+
+    // Optional: format inputs on blur for better UX
+    addInputFormatting("propertyValue");
+    addInputFormatting("rent");
+    addInputFormatting("downPayment");
 });
+
+function addInputFormatting(inputId) {
+    let inputEl = document.getElementById(inputId);
+    inputEl.addEventListener("blur", function() {
+        let val = parseFloat(this.value.replace(/[^0-9.]/g,"")) || 0;
+        this.value = val.toLocaleString("en-US", {style:"currency", currency:"USD"});
+    });
+}
 
 function calculate() {
     // ====================
     // READ AND CLEAN INPUTS
     // ====================
-    let propertyValue = parseFloat(document.getElementById("propertyValue").value.replace(/[^0-9.-]+/g,""));
-    let downPayment = parseFloat(document.getElementById("downPayment").value.replace(/[^0-9.-]+/g,""));
+    let propertyValueInput = document.getElementById("propertyValue");
+    let rentInput = document.getElementById("rent");
+    let downPaymentInput = document.getElementById("downPayment");
+
+    let propertyValue = parseFloat(propertyValueInput.value.replace(/[^0-9.]/g,"")) || 0;
+    let rent = parseFloat(rentInput.value.replace(/[^0-9.]/g,"")) || 0;
+    let downPayment = parseFloat(downPaymentInput.value.replace(/[^0-9.]/g,"")) || 0;
+
     let dpType = document.getElementById("dpType").value;
     let interestRate = parseFloat(document.getElementById("interestRate").value) / 100;
     let loanTerm = parseFloat(document.getElementById("loanTerm").value);
-    let rent = parseFloat(document.getElementById("rent").value.replace(/[^0-9.-]+/g,""));
     let expenseRatio = parseFloat(document.getElementById("expenseRatio").value) / 100;
-
-    // ====================
-    // FORMAT INPUTS LIKE OUTPUTS
-    // ====================
-    document.getElementById("propertyValue").value =
-        propertyValue.toLocaleString("en-US", {style: "currency", currency: "USD"});
-
-    document.getElementById("rent").value =
-        rent.toLocaleString("en-US", {style: "currency", currency: "USD"});
-
-    // For down payment, only format if it's in dollars
-    if (dpType === "dollar") {
-        document.getElementById("downPayment").value =
-            downPayment.toLocaleString("en-US", {style: "currency", currency: "USD"});
-    }
 
     // ====================
     // CALCULATIONS
@@ -47,6 +51,15 @@ function calculate() {
     let annualCashFlow = monthlyCashFlow * 12;
     let cocReturn = (annualCashFlow / downPayment) * 100;
     let capRate = (noi * 12 / propertyValue) * 100;
+
+    // ====================
+    // UPDATE INPUTS (formatted)
+    // ====================
+    propertyValueInput.value = propertyValue.toLocaleString("en-US", {style:"currency", currency:"USD"});
+    rentInput.value = rent.toLocaleString("en-US", {style:"currency", currency:"USD"});
+    if (dpType === "dollar") {
+        downPaymentInput.value = downPayment.toLocaleString("en-US", {style:"currency", currency:"USD"});
+    }
 
     // ====================
     // UPDATE OUTPUTS
@@ -79,11 +92,11 @@ function calculate() {
         let row = tableBody.insertRow();
         row.innerHTML = `
             <td>${i}</td>
-            <td>${balance.toLocaleString("en-US", {style: "currency", currency: "USD"})}</td>
-            <td>${mortgagePayment.toLocaleString("en-US", {style: "currency", currency: "USD"})}</td>
-            <td>${principalPayment.toLocaleString("en-US", {style: "currency", currency: "USD"})}</td>
-            <td>${interestPayment.toLocaleString("en-US", {style: "currency", currency: "USD"})}</td>
-            <td>${endingBalance.toLocaleString("en-US", {style: "currency", currency: "USD"})}</td>
+            <td>${balance.toLocaleString("en-US", {style:"currency", currency:"USD"})}</td>
+            <td>${mortgagePayment.toLocaleString("en-US", {style:"currency", currency:"USD"})}</td>
+            <td>${principalPayment.toLocaleString("en-US", {style:"currency", currency:"USD"})}</td>
+            <td>${interestPayment.toLocaleString("en-US", {style:"currency", currency:"USD"})}</td>
+            <td>${endingBalance.toLocaleString("en-US", {style:"currency", currency:"USD"})}</td>
         `;
 
         balance = endingBalance;
