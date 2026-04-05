@@ -1,128 +1,98 @@
+/* ========== GENERAL PAGE STYLING ========== */
 body {
     font-family: Arial, sans-serif;
-    margin: 0;
-    background: #f3f5f7;
+    margin: 20px;
+    background-color: #f9f9f9;
+    color: #333;
 }
 
-header {
-    background: #1f3c88;
-    color: white;
-    padding: 15px;
-    text-align: center;
-}
-
+/* Container layout */
 .container {
     display: flex;
     gap: 20px;
-    padding: 20px;
 }
 
+/* Sidebar for inputs */
 .sidebar {
-    width: 300px;
+    flex: 1;
+    max-width: 300px;
     padding: 20px;
-    background: white;
+    background-color: #ffffff;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
-.sidebar input, .sidebar select {
+/* Results section */
+.results {
+    flex: 2;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* Input styling */
+input, select {
     width: 100%;
-    padding: 8px;
+    padding: 8px 10px;
     margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
 
-.dp-row {
-    display: flex;
-    gap: 10px;
-}
-
+/* Calculate button */
 button {
     width: 100%;
     padding: 10px;
-    background: #1f3c88;
+    background-color: #1E3A8A; /* dark blue */
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 4px;
     cursor: pointer;
+    font-weight: bold;
 }
 
-.results {
-    flex-grow: 1;
-    padding: 20px;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+button:hover {
+    background-color: #3749b1;
 }
 
-.result-box p {
-    font-size: 18px;
-    margin: 8px 0;
+/* ========== OUTPUTS ========== */
+.output-label {
+    font-weight: bold;
+    margin-top: 10px;
 }
 
-.table-container {
-    height: 400px;
-    overflow-y: scroll;
+.output-value {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+/* ========== TABLE STYLING ========== */
+table {
+    width: 100%;
+    border-collapse: collapse;
     margin-top: 20px;
-    border: 1px solid #ddd;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-th {
-    background: #1f3c88;
-    color: white;
-    padding: 8px;
-}
-
-td {
-    padding: 8px;
-    border-bottom: 1px solid #ddd;
-}
-
-tr:nth-child(even) {
-    background: #f7f9fc;
-}
-table tr:hover {
-    background-color: #dbe4f7; /* light blue on hover */
-}
-.table-container {
-    max-height: 400px;
-    overflow-y: scroll;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-th, td {
-    padding: 8px;
-    border: 1px solid #ccc;
-    text-align: right;
-}
-
-table tr:hover {
-    background-color: #dbe4f7;
-}
-/* Table background color */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: #1f3c88;  /* light gray */
 }
 
 /* Header styling */
 th {
-    background-color: #d9d9d9; /* slightly darker gray for headers */
+    background-color: #1E3A8A; /* dark blue */
+    color: white;
     padding: 8px;
     border: 1px solid #ccc;
     text-align: right;
 }
 
-/* Cell styling */
+/* Alternating row colors */
+tbody tr:nth-child(odd) {
+    background-color: #f2f2f2; /* light gray 1 */
+}
+
+tbody tr:nth-child(even) {
+    background-color: #e6e6e6; /* light gray 2 */
+}
+
+/* Cell borders and padding */
 td {
     padding: 8px;
     border: 1px solid #ccc;
@@ -130,6 +100,24 @@ td {
 }
 
 /* Row hover effect */
-table tr:hover {
-    background-color: #dbe4f7; /* light blue on hover */
+tbody tr:hover {
+    background-color: #dbe4f7; /* light blue hover */
+}
+
+/* Make table scrollable if too long */
+.table-container {
+    max-height: 400px;
+    overflow-y: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* Optional: scroll bar styling */
+.table-container::-webkit-scrollbar {
+    width: 10px;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 5px;
 }
