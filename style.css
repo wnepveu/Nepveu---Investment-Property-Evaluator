@@ -121,3 +121,21 @@ tbody tr:hover {
     background-color: #ccc;
     border-radius: 5px;
 }
+#detailed-expenses input {
+  width: 120px;
+  margin-left: 10px;
+}
+
+#toggle-expenses-btn {
+  background-color: #1F3A78; /* Dark blue header color */
+  color: white;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-bottom: 5px;
+}
+
+#toggle-expenses-btn:hover {
+  opacity: 0.9;
+}
