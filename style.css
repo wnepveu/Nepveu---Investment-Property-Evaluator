@@ -1,4 +1,6 @@
-/* Reset some defaults */
+/* --------------------------
+   Reset & Base Styles
+-------------------------- */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -6,20 +8,21 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Body */
 body {
-    background-color: #f4f6f8;
-    color: #333;
+    background-color: #f7f7f7;
+    color: #222;
     line-height: 1.6;
 }
 
-/* Header */
+/* --------------------------
+   Header
+-------------------------- */
 header {
     text-align: center;
     padding: 25px 15px;
-    background-color: #1f4e79;
+    background-color: #0d214f; /* deep navy */
     color: white;
-    border-bottom: 2px solid #163754;
+    border-bottom: 2px solid #08163a;
 }
 
 header h1 {
@@ -30,9 +33,12 @@ header h1 {
 header h2 {
     font-size: 1.2rem;
     font-weight: 400;
+    color: #c9c9c9;
 }
 
-/* Container layout */
+/* --------------------------
+   Layout
+-------------------------- */
 .container {
     display: flex;
     gap: 20px;
@@ -41,12 +47,14 @@ header h2 {
     justify-content: center;
 }
 
-/* Sidebar Card */
+/* --------------------------
+   Sidebar Card
+-------------------------- */
 .sidebar {
-    background-color: white;
+    background-color: #ffffff;
     padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    border: 1px solid #d3d3d3;
     flex: 1 1 300px;
     min-width: 280px;
 }
@@ -55,26 +63,26 @@ header h2 {
     display: block;
     margin: 12px 0 5px;
     font-weight: 600;
-    color: #1f4e79;
+    color: #0d214f;
 }
 
 .sidebar input,
 .sidebar select {
     width: 100%;
     padding: 8px 10px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
+    border-radius: 6px;
+    border: 1px solid #b0b0b0;
     margin-bottom: 10px;
     font-size: 1rem;
 }
 
 #calculateBtn {
-    background-color: #1f4e79;
+    background-color: #0d214f;
     color: white;
     border: none;
     padding: 12px;
     width: 100%;
-    border-radius: 10px;
+    border-radius: 8px;
     font-size: 1rem;
     cursor: pointer;
     margin-top: 10px;
@@ -82,39 +90,42 @@ header h2 {
 }
 
 #calculateBtn:hover {
-    background-color: #163754;
+    background-color: #08163a;
 }
 
-/* Results Card */
+/* --------------------------
+   Results Card
+-------------------------- */
 .results {
-    background-color: white;
+    background-color: #ffffff;
     padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    border: 1px solid #d3d3d3;
     flex: 1 1 500px;
     min-width: 300px;
 }
 
 .results h3 {
     margin-bottom: 15px;
-    color: #1f4e79;
+    color: #0d214f;
 }
 
-/* Performance results */
 .results p {
     font-size: 1rem;
     margin-bottom: 10px;
 }
 
-/* Table Container */
+/* --------------------------
+   Amortization Table
+-------------------------- */
 .table-container {
     max-height: 500px;
     overflow-y: auto;
-    border-radius: 10px;
-    border: 1px solid #ccc;
+    border-radius: 8px;
+    border: 1px solid #d3d3d3;
+    margin-top: 15px;
 }
 
-/* Amortization Table */
 #amortTable {
     width: 100%;
     border-collapse: collapse;
@@ -123,11 +134,12 @@ header h2 {
 #amortTable thead th {
     position: sticky;
     top: 0;
-    background-color: #1f4e79;
+    background-color: #0d214f; /* navy header */
     color: white;
     z-index: 2;
     padding: 10px;
     font-weight: 600;
+    text-align: right;
 }
 
 #amortTable tbody td {
@@ -136,49 +148,61 @@ header h2 {
     border-bottom: 1px solid #e0e0e0;
 }
 
+/* Alternating row colors */
 #amortTable tbody tr:nth-child(even) {
     background-color: #f9f9f9;
 }
 
-/* Footer */
+/* Hover effect */
+#amortTable tbody tr:hover {
+    background-color: #e6f0ff;
+}
+
+/* --------------------------
+   Footer
+-------------------------- */
 footer {
     text-align: center;
     padding: 15px;
     font-size: 0.9rem;
-    color: #666;
+    color: #555;
     margin-top: 20px;
 }
 
-/* Detailed Expenses */
+/* --------------------------
+   Detailed Expenses Section
+-------------------------- */
 #detailed-expenses {
     background-color: #ffffff;
     padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    border-radius: 8px;
+    border: 1px solid #d3d3d3;
     margin-top: 15px;
 }
 
 /* Toggle Button */
 #toggle-expenses-btn {
-    background-color: #1f4e79;
+    background-color: #0d214f;
     color: white;
     border: none;
     padding: 10px 15px;
-    border-radius: 8px;
+    border-radius: 6px;
     cursor: pointer;
     margin-top: 15px;
     transition: background-color 0.3s ease;
 }
 
 #toggle-expenses-btn:hover {
-    background-color: #163754;
+    background-color: #08163a;
 }
 
-/* Question mark tooltip */
+/* --------------------------
+   Info Icon Tooltip
+-------------------------- */
 .info-icon {
     display: inline-block;
     margin-left: 6px;
-    background-color: #1f4e79;
+    background-color: #0d214f;
     color: white;
     border-radius: 50%;
     width: 16px;
@@ -191,5 +215,5 @@ footer {
 }
 
 .info-icon:hover {
-    background-color: #163754;
+    background-color: #08163a;
 }
