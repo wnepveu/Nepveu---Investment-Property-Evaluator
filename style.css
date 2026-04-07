@@ -41,8 +41,8 @@ header h2 {
 -------------------------- */
 .container {
     display: flex;
-    gap: 12px;
-    padding: 15px;
+    gap: 8px;
+    padding: 10px;
     flex-wrap: wrap;
     justify-content: center;
 }
@@ -52,7 +52,7 @@ header h2 {
 -------------------------- */
 .sidebar {
     background-color: #ffffff;
-    padding: 20px;
+    padding: 12px;
     border-radius: 10px;
     border: 1px solid #d3d3d3;
     flex: 1 1 300px;
@@ -119,11 +119,11 @@ header h2 {
    Amortization Table
 -------------------------- */
 .table-container {
-    max-height: 500px;
+    max-height: 350px;
     overflow-y: auto;
     border-radius: 8px;
     border: 1px solid #d3d3d3;
-    margin-top: 15px;
+    margin-top: 10px;
 }
 
 #amortTable {
@@ -163,10 +163,10 @@ header h2 {
 -------------------------- */
 footer {
     text-align: center;
-    padding: 2px;
+    padding: 1px;
     font-size: 0.9rem;
     color: #555;
-    margin-top: 2px;
+    margin-top: 1px;
 }
 
 /* --------------------------
@@ -174,10 +174,10 @@ footer {
 -------------------------- */
 #detailed-expenses {
     background-color: #ffffff;
-    padding: 15px;
+    padding: 10px;
     border-radius: 8px;
     border: 1px solid #d3d3d3;
-    margin-top: 15px;
+    margin-top: 10px;
 }
 
 /* Toggle Button */
@@ -219,7 +219,7 @@ footer {
 }
 header {
     text-align: left;
-    padding: 25px 20px; /* aligns with container padding */
+    padding: 20px 15px; /* aligns with container padding */
     background-color: #0d214f;
     color: white;
     border-bottom: 2px solid #08163a;
@@ -227,12 +227,12 @@ header {
 
 header h1 {
     font-size: 2rem;
-    margin-bottom: 5px;
+    margin-bottom: 3px;
 }
 
 header h2 {
     font-size: 1.2rem;
     font-weight: 400;
     color: #c9c9c9;
-    margin-top: 5px;
+    margin-top: 3px;
 }
