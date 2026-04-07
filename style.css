@@ -19,7 +19,7 @@ body {
 -------------------------- */
 header {
     text-align: center;
-    padding: 25px 15px;
+    padding: 20px 15px;
     background-color: #0d214f; /* deep navy */
     color: white;
     border-bottom: 2px solid #08163a;
@@ -41,7 +41,7 @@ header h2 {
 -------------------------- */
 .container {
     display: flex;
-    gap: 20px;
+    gap: 15px;
     padding: 20px;
     flex-wrap: wrap;
     justify-content: center;
