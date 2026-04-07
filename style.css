@@ -1,156 +1,195 @@
-/* ========== GENERAL PAGE STYLING ========== */
+/* Reset some defaults */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Body */
 body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-    background-color: #f9f9f9;
+    background-color: #f4f6f8;
     color: #333;
+    line-height: 1.6;
+}
+
+/* Header */
+header {
+    text-align: center;
+    padding: 25px 15px;
+    background-color: #1f4e79;
+    color: white;
+    border-bottom: 2px solid #163754;
+}
+
+header h1 {
+    font-size: 2rem;
+    margin-bottom: 5px;
+}
+
+header h2 {
+    font-size: 1.2rem;
+    font-weight: 400;
 }
 
 /* Container layout */
 .container {
     display: flex;
     gap: 20px;
-}
-
-/* Sidebar for inputs */
-.sidebar {
-    flex: 1;
-    max-width: 300px;
     padding: 20px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
-/* Results section */
-.results {
-    flex: 2;
-    padding: 15px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+/* Sidebar Card */
+.sidebar {
+    background-color: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    flex: 1 1 300px;
+    min-width: 280px;
 }
 
-/* Input styling */
-input, select {
+.sidebar label {
+    display: block;
+    margin: 12px 0 5px;
+    font-weight: 600;
+    color: #1f4e79;
+}
+
+.sidebar input,
+.sidebar select {
     width: 100%;
     padding: 8px 10px;
-    margin-bottom: 15px;
+    border-radius: 8px;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    margin-bottom: 10px;
+    font-size: 1rem;
 }
 
-/* Calculate button */
-button {
-    width: 100%;
-    padding: 10px;
-    background-color: #1E3A8A; /* dark blue */
+#calculateBtn {
+    background-color: #1f4e79;
     color: white;
     border: none;
-    border-radius: 4px;
+    padding: 12px;
+    width: 100%;
+    border-radius: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+#calculateBtn:hover {
+    background-color: #163754;
+}
+
+/* Results Card */
+.results {
+    background-color: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    flex: 1 1 500px;
+    min-width: 300px;
+}
+
+.results h3 {
+    margin-bottom: 15px;
+    color: #1f4e79;
+}
+
+/* Performance results */
+.results p {
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+/* Table Container */
+.table-container {
+    max-height: 500px;
+    overflow-y: auto;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+/* Amortization Table */
+#amortTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#amortTable thead th {
+    position: sticky;
+    top: 0;
+    background-color: #1f4e79;
+    color: white;
+    z-index: 2;
+    padding: 10px;
+    font-weight: 600;
+}
+
+#amortTable tbody td {
+    padding: 8px;
+    text-align: right;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+#amortTable tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 15px;
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 20px;
+}
+
+/* Detailed Expenses */
+#detailed-expenses {
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    margin-top: 15px;
+}
+
+/* Toggle Button */
+#toggle-expenses-btn {
+    background-color: #1f4e79;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: background-color 0.3s ease;
+}
+
+#toggle-expenses-btn:hover {
+    background-color: #163754;
+}
+
+/* Question mark tooltip */
+.info-icon {
+    display: inline-block;
+    margin-left: 6px;
+    background-color: #1f4e79;
+    color: white;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    font-size: 12px;
+    text-align: center;
+    line-height: 16px;
     cursor: pointer;
     font-weight: bold;
 }
 
-button:hover {
-    background-color: #3749b1;
-}
-
-/* ========== OUTPUTS ========== */
-.output-label {
-    font-weight: bold;
-    margin-top: 10px;
-}
-
-.output-value {
-    font-size: 1.2em;
-    margin-bottom: 10px;
-}
-
-/* ========== TABLE STYLING ========== */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-
-/* Header styling */
-th {
-    background-color: #1E3A8A; /* dark blue */
-    color: white;
-    padding: 8px;
-    border: 1px solid #ccc;
-    text-align: right;
-}
-
-/* Alternating row colors */
-tbody tr:nth-child(odd) {
-    background-color: #f2f2f2; /* light gray 1 */
-}
-
-tbody tr:nth-child(even) {
-    background-color: #e6e6e6; /* light gray 2 */
-}
-
-/* Cell borders and padding */
-td {
-    padding: 8px;
-    border: 1px solid #ccc;
-    text-align: right;
-}
-
-/* Row hover effect */
-tbody tr:hover {
-    background-color: #dbe4f7; /* light blue hover */
-}
-
-/* Make table scrollable if too long */
-.table-container {
-    max-height: 325px;
-    overflow-y: auto;
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-}
-
-/* Optional: scroll bar styling */
-.table-container::-webkit-scrollbar {
-    width: 10px;
-}
-
-.table-container::-webkit-scrollbar-thumb {
-    background-color: #ccc;
-    border-radius: 5px;
-}
-#detailed-expenses input {
-  width: 120px;
-  margin-left: 10px;
-}
-
-#toggle-expenses-btn {
-  background-color: #1F3A78; /* Dark blue header color */
-  color: white;
-  padding: 8px 14px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  margin-bottom: 5px;
-}
-
-#toggle-expenses-btn:hover {
-  opacity: 0.9;
-}
-/* Make amortization table scrollable */
-.table-container {
-    max-height: 325px;   /* adjust height as needed */
-    overflow-y: auto;
-    border: 1px solid #ccc;
-}
-
-/* Sticky table header */
-#amortTable thead th {
-    position: sticky;
-    top: 0;
-    background-color: #1f4e79; /* your dark blue header */
-    color: white;
-    z-index: 2;
+.info-icon:hover {
+    background-color: #163754;
 }
