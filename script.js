@@ -1,5 +1,20 @@
 document.addEventListener("DOMContentLoaded", function () {
+    // Main calculate button
     document.getElementById("calculateBtn").addEventListener("click", calculate);
+
+    // Toggle detailed expense section
+    const btn = document.getElementById("toggle-expenses-btn");
+    const section = document.getElementById("detailed-expenses");
+
+    btn.addEventListener("click", () => {
+        if (section.style.display === "none") {
+            section.style.display = "block";
+            btn.textContent = "Hide Detailed Expenses";
+        } else {
+            section.style.display = "none";
+            btn.textContent = "Show Detailed Expenses";
+        }
+    });
 
     // Listen for detailed expenses changing
     ["taxes", "insurance", "maintenance"].forEach(id => {
@@ -9,19 +24,21 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 /* -----------------------------
-   UPDATE EXPENSE RATIO FROM DETAILED INPUTS
+   UPDATE EXPENSE RATIO BASED ON DETAILED INPUTS
 --------------------------------*/
 function updateExpenseRatioFromDetails() {
     let rent = parseFloat(document.getElementById("rent").value) || 0;
 
     let taxes = parseFloat(document.getElementById("taxes").value) || 0;
     let insurance = parseFloat(document.getElementById("insurance").value) || 0;
-    let maintenance = parseFloat(document.getElementById("maintenance").value) || 0;
+    let maintenancePct = parseFloat(document.getElementById("maintenance").value) || 0;
 
-    let totalDetailedExpenses = taxes + insurance + maintenance;
+    // Convert maintenance % -> monthly dollars
+    let maintenance = rent * (maintenancePct / 100);
 
-    // Avoid divide-by-zero
-    let ratio = rent > 0 ? (totalDetailedExpenses / rent) * 100 : 0;
+    let totalMonthlyExpenses = (taxes + insurance) / 12 + maintenance;
+
+    let ratio = rent > 0 ? (totalMonthlyExpenses / rent) * 100 : 0;
 
     document.getElementById("expenseRatio").value = ratio.toFixed(2);
 }
