@@ -139,3 +139,18 @@ tbody tr:hover {
 #toggle-expenses-btn:hover {
   opacity: 0.9;
 }
+/* Make amortization table scrollable */
+.table-container {
+    max-height: 325px;   /* adjust height as needed */
+    overflow-y: auto;
+    border: 1px solid #ccc;
+}
+
+/* Sticky table header */
+#amortTable thead th {
+    position: sticky;
+    top: 0;
+    background-color: #1f4e79; /* your dark blue header */
+    color: white;
+    z-index: 2;
+}
