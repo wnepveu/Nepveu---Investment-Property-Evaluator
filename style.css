@@ -106,7 +106,7 @@ tbody tr:hover {
 
 /* Make table scrollable if too long */
 .table-container {
-    max-height: 400px;
+    max-height: 325px;
     overflow-y: auto;
     border-radius: 8px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
