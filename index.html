@@ -1,143 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Investment Property Evaluator</title>
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    background-color: #eef2f7;
-    margin: 0;
-    padding: 20px;
-  }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>William Nepveu - Investment Property Evaluator</title>
+    <link rel="stylesheet" href="style.css">
 
-  /* Container for outputs + break-even */
-  .output-container {
-    display: flex;
-    gap: 20px;
-    background: white;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    flex-wrap: wrap; /* Makes it responsive */
-  }
+    <style>
+        /* Question mark icon */
+        .help-icon {
+            display: inline-block;
+            background: #1f4e79;
+            color: white;
+            width: 18px;
+            height: 18px;
+            font-size: 13px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 18px;
+            cursor: pointer;
+            margin-left: 5px;
+        }
 
-  /* Investment performance section */
-  .investment-performance {
-    flex: 2; /* Larger width */
-    min-width: 250px;
-  }
+        /* Help popup */
+        .help-popup {
+            display: none;
+            background: #f0f0f0;
+            border: 1px solid #ccc;
+            padding: 8px;
+            border-radius: 5px;
+            margin-top: 8px;
+            width: 340px;
+        }
+    </style>
 
-  .investment-performance h2 {
-    margin-top: 0;
-    color: #1a3d7c; /* dark blue header */
-  }
-
-  .output-item {
-    background: #f5f5f5;
-    padding: 10px;
-    border-radius: 8px;
-    margin-bottom: 10px;
-  }
-
-  /* Break-even calculator section */
-  .break-even-calculator {
-    flex: 1; /* Smaller width */
-    min-width: 200px;
-    background: #f9f9f9;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
-  }
-
-  .break-even-calculator h2 {
-    margin-top: 0;
-    color: #1a3d7c;
-  }
-
-  .break-even-calculator label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-  }
-
-  .break-even-calculator input {
-    width: 100%;
-    padding: 6px;
-    margin-bottom: 10px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-  }
-
-  .break-even-calculator button {
-    width: 100%;
-    padding: 8px;
-    background-color: #1a3d7c;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: bold;
-  }
-
-  .break-even-calculator button:hover {
-    background-color: #14406b;
-  }
-
-  .break-even-result {
-    margin-top: 10px;
-    padding: 10px;
-    background: #e2e8f0;
-    border-radius: 6px;
-    text-align: center;
-    font-weight: bold;
-  }
-
-  @media (max-width: 768px) {
-    .output-container {
-      flex-direction: column;
-    }
-  }
-</style>
 </head>
 <body>
+    <header>
+        <h1>William Nepveu’s Investment Property Evaluator</h1>
+        <h2>Analyze Real Estate Investments Instantly</h2>
+    </header>
 
-<div class="output-container">
+    <div class="container">
+        <!-- Sidebar Inputs -->
+        <div class="sidebar">
 
-  <!-- Investment Performance -->
-  <div class="investment-performance">
-    <h2>Investment Performance</h2>
-    <div class="output-item">Annual Cash Flow: $12,000</div>
-    <div class="output-item">ROI: 8%</div>
-    <div class="output-item">Net Income: $9,500</div>
-    <!-- Add your other outputs here -->
-  </div>
+            <label for="propertyValue">Property Value ($):</label>
+            <input type="number" id="propertyValue" value="300000">
 
-  <!-- Break-even Calculator -->
-  <div class="break-even-calculator">
-    <h2>Break-Even Calculator</h2>
-    <label for="rent">Monthly Rent ($)</label>
-    <input type="number" id="rent" placeholder="Enter monthly rent">
+            <label for="downPayment">Down Payment:</label>
+            <input type="number" id="downPayment" value="20">
+            <select id="dpType">
+                <option value="percent">%</option>
+                <option value="dollar">$</option>
+            </select>
 
-    <label for="expenses">Monthly Expenses ($)</label>
-    <input type="number" id="expenses" placeholder="Enter monthly expenses">
+            <label for="interestRate">Interest Rate (%):</label>
+            <input type="number" id="interestRate" value="6" step="0.01">
 
-    <button onclick="calculateBreakEven()">Calculate</button>
+            <label for="loanTerm">Loan Term (Years):</label>
+            <input type="number" id="loanTerm" value="30">
 
-    <div class="break-even-result" id="breakEvenResult">Break-Even: $0</div>
-  </div>
+            <label for="rent">Gross Monthly Rent ($):</label>
+            <input type="number" id="rent" value="2500">
 
-</div>
+            <!-- Operating Expense Ratio WITH QUESTION MARK -->
+            <label for="expenseRatio">
+                Operating Expense Ratio (%):
+                <span class="help-icon" id="help-icon">?</span>
+            </label>
+            <input type="number" id="expenseRatio" value="30">
 
-<script>
-function calculateBreakEven() {
-  const rent = parseFloat(document.getElementById('rent').value) || 0;
-  const expenses = parseFloat(document.getElementById('expenses').value) || 0;
-  const breakEven = rent - expenses;
-  document.getElementById('breakEvenResult').textContent = 'Break-Even: $' + breakEven.toFixed(2);
-}
-</script>
+            <!-- Help message -->
+            <div id="help-popup" class="help-popup">
+                See Detailed Expenses section at the bottom if operating expense ratio is unknown.
+            </div>
+
+            <button id="calculateBtn">Calculate</button>
+        </div>
+
+        <!-- Results -->
+        <div class="results">
+            <h3>Investment Performance</h3>
+            <p>Loan Amount: <span id="loanAmount">$0</span></p>
+            <p>Mortgage Payment: <span id="mortgagePayment">$0</span></p>
+            <p>Monthly Cash Flow: <span id="monthlyCashFlow">$0</span></p>
+            <p>Cash-on-Cash Return: <span id="cocReturn">0%</span></p>
+            <p>Cap Rate: <span id="capRate">0%</span></p>
+
+            <h3>Amortization Schedule</h3>
+            <div class="table-container">
+                <table id="amortTable">
+                    <thead>
+                        <tr>
+                            <th>Month</th>
+                            <th>Beginning Balance</th>
+                            <th>Payment</th>
+                            <th>Principal</th>
+                            <th>Interest</th>
+                            <th>Ending Balance</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>William Nepveu — FIN 351 | Spring 2026</p>
+    </footer>
+
+    <!-- Toggle Button -->
+    <button id="toggle-expenses-btn">Show Detailed Expenses</button>
+
+    <!-- Hidden Detailed Expense Section -->
+    <div id="detailed-expenses" style="display:none; margin-top:15px;">
+        <label>Property Taxes ($/year): <input type="number" id="taxes" placeholder="Enter amount"></label><br>
+        <label>Insurance ($/year): <input type="number" id="insurance" placeholder="Enter amount"></label><br>
+        <label>Maintenance (%): <input type="number" id="maintenance" placeholder="Enter %"></label><br>
+        <label>Property Management (%): <input type="number" id="management" placeholder="Enter %"></label><br>
+        <label>Vacancy (%): <input type="number" id="vacancy" placeholder="Enter %"></label><br>
+        <label>Other Expenses ($): <input type="number" id="otherExp" placeholder="Enter amount"></label>
+    </div>
+
+    <script src="script.js"></script>
 
 </body>
 </html>
