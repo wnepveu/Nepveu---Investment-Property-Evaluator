@@ -31,7 +31,10 @@
             <label for="loanTerm">Loan Term (Years):</label>
             <input type="number" id="loanTerm" value="30">
 
-            <!-- Operating Expense Ratio WITH HELP ICON -->
+            <label for="rent">Gross Monthly Rent ($):</label>
+            <input type="number" id="rent" value="2500">
+
+            <!-- Operating Expense Ratio WITH HELP -->
             <label for="expenseRatio">
                 Operating Expense Ratio (%):
                 <span class="help-icon" id="help-icon">?</span>
@@ -39,7 +42,8 @@
             <input type="number" id="expenseRatio" value="30">
 
             <div id="help-popup" class="help-popup">
-                Enter your expected operating expense ratio (expenses ÷ rent). If unknown, use the detailed expenses below.
+                Enter an estimate of your total operating expenses as a percentage of rent.
+                If unknown, you can fill in Detailed Expenses at the bottom.
             </div>
 
             <button id="calculateBtn">Calculate</button>
@@ -48,13 +52,25 @@
         <!-- Results -->
         <div class="results">
             <h3>Investment Performance</h3>
-            <div class="results-grid">
-                <div class="output-item" id="loanAmount">Loan Amount: $0</div>
-                <div class="output-item" id="mortgagePayment">Mortgage Payment: $0</div>
-                <div class="output-item" id="monthlyCashFlow">Monthly Cash Flow: $0</div>
-                <div class="output-item" id="cocReturn">Cash-on-Cash Return: 0%</div>
-                <div class="output-item" id="capRate">Cap Rate: 0%</div>
-                <div class="output-item" id="breakEvenRent">Break-even Rent: $0</div>
+            <div class="output-grid">
+                <div class="output-item">
+                    Loan Amount: <span id="loanAmount">$0</span>
+                </div>
+                <div class="output-item">
+                    Mortgage Payment: <span id="mortgagePayment">$0</span>
+                </div>
+                <div class="output-item">
+                    Monthly Cash Flow: <span id="monthlyCashFlow">$0</span>
+                </div>
+                <div class="output-item">
+                    Cash-on-Cash Return: <span id="cocReturn">0%</span>
+                </div>
+                <div class="output-item">
+                    Cap Rate: <span id="capRate">0%</span>
+                </div>
+                <div class="output-item">
+                    Break-Even Rent: <span id="breakEvenRent">$0</span>
+                </div>
             </div>
 
             <h3>Amortization Schedule</h3>
@@ -80,10 +96,8 @@
         <p>William Nepveu — FIN 351 | Spring 2026</p>
     </footer>
 
-    <!-- Toggle Button -->
+    <!-- Toggle Detailed Expenses -->
     <button id="toggle-expenses-btn">Show Detailed Expenses</button>
-
-    <!-- Hidden Detailed Expense Section -->
     <div id="detailed-expenses" style="display:none; margin-top:15px;">
         <label>Property Taxes ($/year): <input type="number" id="taxes" placeholder="Enter amount"></label><br>
         <label>Insurance ($/year): <input type="number" id="insurance" placeholder="Enter amount"></label><br>
