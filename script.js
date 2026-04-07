@@ -3,93 +3,83 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("toggle-expenses-btn").addEventListener("click", toggleDetails);
     document.getElementById("help-icon").addEventListener("click", toggleHelp);
 
-    ["taxes", "insurance", "maintenance", "management", "vacancy", "otherExp"]
-        .forEach(id => {
-            document.getElementById(id).addEventListener("input", updateExpenseRatioFromDetails);
-        });
+    ["taxes","insurance","maintenance","management","vacancy","otherExp"].forEach(id => {
+        document.getElementById(id).addEventListener("input", updateExpenseRatioFromDetails);
+    });
 });
 
 function toggleDetails() {
     let box = document.getElementById("detailed-expenses");
     let btn = document.getElementById("toggle-expenses-btn");
-    if (box.style.display === "none") {
-        box.style.display = "block";
-        btn.innerText = "Hide Detailed Expenses";
-    } else {
-        box.style.display = "none";
-        btn.innerText = "Show Detailed Expenses";
-    }
+    if(box.style.display==="none") { box.style.display="block"; btn.innerText="Hide Detailed Expenses"; }
+    else { box.style.display="none"; btn.innerText="Show Detailed Expenses"; }
 }
 
 function toggleHelp() {
     let popup = document.getElementById("help-popup");
-    popup.style.display = popup.style.display === "block" ? "none" : "block";
+    popup.style.display = (popup.style.display==="block") ? "none" : "block";
 }
 
 function updateExpenseRatioFromDetails() {
-    let rent = parseFloat(document.getElementById("rent").value) || 0;
-    let taxes = parseFloat(document.getElementById("taxes").value);
-    let insurance = parseFloat(document.getElementById("insurance").value);
-    let other = parseFloat(document.getElementById("otherExp").value);
-    let maintenance = parseFloat(document.getElementById("maintenance").value);
-    let management = parseFloat(document.getElementById("management").value);
-    let vacancy = parseFloat(document.getElementById("vacancy").value);
-    maintenance = maintenance ? maintenance / 100 : 0;
-    management = management ? management / 100 : 0;
-    vacancy = vacancy ? vacancy / 100 : 0;
-    let annualRent = rent * 12;
-    let annualExpenses = (taxes||0) + (insurance||0) + (other||0) + (annualRent*maintenance) + (annualRent*management) + (annualRent*vacancy);
-    let ratio = annualRent > 0 ? (annualExpenses/annualRent)*100 : 0;
-    document.getElementById("expenseRatio").value = ratio.toFixed(2);
+    let rent = parseFloat(document.getElementById("rent")?.value)||0;
+    let taxes=parseFloat(document.getElementById("taxes").value)||0;
+    let insurance=parseFloat(document.getElementById("insurance").value)||0;
+    let other=parseFloat(document.getElementById("otherExp").value)||0;
+    let maintenance=parseFloat(document.getElementById("maintenance").value)/100||0;
+    let management=parseFloat(document.getElementById("management").value)/100||0;
+    let vacancy=parseFloat(document.getElementById("vacancy").value)/100||0;
+    let annualRent=rent*12;
+    let annualExpenses = taxes+insurance+other + annualRent*(maintenance+management+vacancy);
+    let ratio = annualRent>0? (annualExpenses/annualRent)*100 : 0;
+    document.getElementById("expenseRatio").value=ratio.toFixed(2);
 }
 
 function calculate() {
-    let propertyValue = parseFloat(document.getElementById("propertyValue").value);
-    let downPayment = parseFloat(document.getElementById("downPayment").value);
-    let dpType = document.getElementById("dpType").value;
-    let interestRate = parseFloat(document.getElementById("interestRate").value)/100;
-    let loanTerm = parseFloat(document.getElementById("loanTerm").value);
-    let rent = parseFloat(document.getElementById("rent").value);
-    let expenseRatio = parseFloat(document.getElementById("expenseRatio").value)/100;
+    let propertyValue=parseFloat(document.getElementById("propertyValue").value);
+    let downPayment=parseFloat(document.getElementById("downPayment").value);
+    let dpType=document.getElementById("dpType").value;
+    let interestRate=parseFloat(document.getElementById("interestRate").value)/100;
+    let loanTerm=parseFloat(document.getElementById("loanTerm").value);
+    let expenseRatio=parseFloat(document.getElementById("expenseRatio").value)/100;
 
-    if(dpType==="percent") downPayment = propertyValue*(downPayment/100);
-    let loanAmount = propertyValue - downPayment;
-    let r = interestRate/12;
-    let n = loanTerm*12;
-    let mortgagePayment = loanAmount*(r*Math.pow(1+r,n))/(Math.pow(1+r,n)-1);
-    let expenses = rent*expenseRatio;
-    let noi = rent - expenses;
-    let monthlyCashFlow = noi - mortgagePayment;
-    let annualCashFlow = monthlyCashFlow*12;
-    let cocReturn = (annualCashFlow/downPayment)*100;
-    let capRate = (noi*12/propertyValue)*100;
+    if(dpType==="percent") downPayment=propertyValue*(downPayment/100);
 
-    // Update outputs
-    document.getElementById("loanAmount").innerText = "Loan Amount: " + loanAmount.toLocaleString("en-US",{style:"currency",currency:"USD"});
-    document.getElementById("mortgagePayment").innerText = "Mortgage Payment: " + mortgagePayment.toLocaleString("en-US",{style:"currency",currency:"USD"});
-    let mcf = document.getElementById("monthlyCashFlow");
-    mcf.innerText = "Monthly Cash Flow: " + monthlyCashFlow.toLocaleString("en-US",{style:"currency",currency:"USD"});
-    mcf.style.color = monthlyCashFlow>=0?"green":"red";
-    document.getElementById("cocReturn").innerText = "Cash-on-Cash Return: " + cocReturn.toFixed(2)+"%";
-    document.getElementById("capRate").innerText = "Cap Rate: " + capRate.toFixed(2)+"%";
-    document.getElementById("rentalPrice").innerText = "Rental Price: " + rent.toLocaleString("en-US",{style:"currency",currency:"USD"});
+    let loanAmount=propertyValue-downPayment;
+    let r=interestRate/12;
+    let n=loanTerm*12;
+    let mortgagePayment=loanAmount*(r*Math.pow(1+r,n))/(Math.pow(1+r,n)-1);
 
-    // Amortization table
-    let tableBody = document.getElementById("amortTable").querySelector("tbody");
+    let monthlyCashFlow=-mortgagePayment; // assume rent unknown
+    let annualCashFlow=monthlyCashFlow*12;
+    let cocReturn=(annualCashFlow/downPayment)*100;
+    let capRate=( - mortgagePayment*12 / propertyValue)*100;
+
+    let breakEvenRent = mortgagePayment/(1-expenseRatio);
+
+    document.getElementById("loanAmount").innerText = "Loan Amount: "+loanAmount.toLocaleString("en-US",{style:"currency",currency:"USD"});
+    document.getElementById("mortgagePayment").innerText = "Mortgage Payment: "+mortgagePayment.toLocaleString("en-US",{style:"currency",currency:"USD"});
+    document.getElementById("monthlyCashFlow").innerText = "Monthly Cash Flow: $0";
+    document.getElementById("monthlyCashFlow").style.color="black";
+    document.getElementById("cocReturn").innerText = "Cash-on-Cash Return: 0%";
+    document.getElementById("capRate").innerText = "Cap Rate: 0%";
+    document.getElementById("breakEvenRent").innerText = "Break-even Rent: "+breakEvenRent.toLocaleString("en-US",{style:"currency",currency:"USD"});
+
+    // Amortization Table
+    let tableBody=document.getElementById("amortTable").querySelector("tbody");
     tableBody.innerHTML="";
-    let balance = loanAmount;
+    let balance=loanAmount;
     for(let i=1;i<=n;i++){
-        let interestPayment = balance*r;
-        let principalPayment = mortgagePayment - interestPayment;
-        let endingBalance = balance - principalPayment;
-        let row = tableBody.insertRow();
-        row.innerHTML = `<td>${i}</td>
-                         <td>${balance.toLocaleString("en-US",{style:"currency",currency:"USD"})}</td>
-                         <td>${mortgagePayment.toLocaleString("en-US",{style:"currency",currency:"USD"})}</td>
-                         <td>${principalPayment.toLocaleString("en-US",{style:"currency",currency:"USD"})}</td>
-                         <td>${interestPayment.toLocaleString("en-US",{style:"currency",currency:"USD"})}</td>
-                         <td>${endingBalance.toLocaleString("en-US",{style:"currency",currency:"USD"})}</td>`;
-        balance = endingBalance;
+        let interestPayment=balance*r;
+        let principalPayment=mortgagePayment-interestPayment;
+        let endingBalance=balance-principalPayment;
+        let row=tableBody.insertRow();
+        row.innerHTML=`<td>${i}</td>
+        <td>${balance.toLocaleString("en-US",{style:"currency",currency:"USD"})}</td>
+        <td>${mortgagePayment.toLocaleString("en-US",{style:"currency",currency:"USD"})}</td>
+        <td>${principalPayment.toLocaleString("en-US",{style:"currency",currency:"USD"})}</td>
+        <td>${interestPayment.toLocaleString("en-US",{style:"currency",currency:"USD"})}</td>
+        <td>${endingBalance.toLocaleString("en-US",{style:"currency",currency:"USD"})}</td>`;
+        balance=endingBalance;
         if(balance<=0) break;
     }
 }
