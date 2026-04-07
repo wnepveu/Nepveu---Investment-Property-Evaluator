@@ -31,9 +31,7 @@
             <label for="loanTerm">Loan Term (Years):</label>
             <input type="number" id="loanTerm" value="30">
 
-            <label for="rent">Gross Monthly Rent ($):</label>
-            <input type="number" id="rent" value="2500">
-
+            <!-- Operating Expense Ratio WITH HELP ICON -->
             <label for="expenseRatio">
                 Operating Expense Ratio (%):
                 <span class="help-icon" id="help-icon">?</span>
@@ -41,13 +39,13 @@
             <input type="number" id="expenseRatio" value="30">
 
             <div id="help-popup" class="help-popup">
-                See Detailed Expenses section at the bottom if operating expense ratio is unknown.
+                Enter your expected operating expense ratio (expenses ÷ rent). If unknown, use the detailed expenses below.
             </div>
 
             <button id="calculateBtn">Calculate</button>
         </div>
 
-        <!-- Results Grid -->
+        <!-- Results -->
         <div class="results">
             <h3>Investment Performance</h3>
             <div class="results-grid">
@@ -56,7 +54,7 @@
                 <div class="output-item" id="monthlyCashFlow">Monthly Cash Flow: $0</div>
                 <div class="output-item" id="cocReturn">Cash-on-Cash Return: 0%</div>
                 <div class="output-item" id="capRate">Cap Rate: 0%</div>
-                <div class="output-item" id="rentalPrice">Rental Price: $0</div>
+                <div class="output-item" id="breakEvenRent">Break-even Rent: $0</div>
             </div>
 
             <h3>Amortization Schedule</h3>
@@ -78,6 +76,10 @@
         </div>
     </div>
 
+    <footer>
+        <p>William Nepveu — FIN 351 | Spring 2026</p>
+    </footer>
+
     <!-- Toggle Button -->
     <button id="toggle-expenses-btn">Show Detailed Expenses</button>
 
@@ -91,12 +93,6 @@
         <label>Other Expenses ($): <input type="number" id="otherExp" placeholder="Enter amount"></label>
     </div>
 
-    <footer>
-        <p>William Nepveu — FIN 351 | Spring 2026</p>
-    </footer>
-
     <script src="script.js"></script>
 </body>
 </html>
-document.getElementById("breakEvenRent").innerText =
-    "Break-even Rent: " + breakEvenRent.toLocaleString("en-US", {style: "currency", currency: "USD"});
