@@ -11,8 +11,8 @@
 body {
     background-color: #f7f7f7;
     color: #222;
-    line-height: 1.6;
-    padding: 10px;
+    line-height: 1.2;
+    padding: 8px;
 }
 
 /* --------------------------
@@ -20,7 +20,7 @@ body {
 -------------------------- */
 header {
     text-align: left;
-    padding: 20px;
+    padding: 10px;
     background-color: #0d214f;
     color: white;
     border-bottom: 2px solid #08163a;
@@ -43,7 +43,7 @@ header h2 {
 -------------------------- */
 .container {
     display: flex;
-    gap: 15px;
+    gap: 10px;
     flex-wrap: wrap;
     justify-content: center;
 }
@@ -70,10 +70,10 @@ header h2 {
 .sidebar input,
 .sidebar select {
     width: 100%;
-    padding: 8px;
+    padding: 7px;
     border-radius: 6px;
     border: 1px solid #b0b0b0;
-    margin-bottom: 10px;
+    margin-bottom: 7px;
     font-size: 1rem;
 }
 
@@ -122,7 +122,7 @@ header h2 {
     padding: 8px;
     border-radius: 5px;
     margin-top: 5px;
-    width: 300px;
+    width: 500px;
 }
 
 /* --------------------------
@@ -161,7 +161,7 @@ header h2 {
    Amortization Table
 -------------------------- */
 .table-container {
-    max-height: 350px;
+    max-height: 550px;
     overflow-y: auto;
     border-radius: 8px;
     border: 1px solid #d3d3d3;
@@ -205,10 +205,10 @@ header h2 {
 -------------------------- */
 footer {
     text-align: center;
-    padding: 5px;
+    padding: 1px;
     font-size: 0.9rem;
     color: #555;
-    margin-top: 10px;
+    margin-top: 2px;
 }
 
 /* --------------------------
@@ -216,10 +216,10 @@ footer {
 -------------------------- */
 #detailed-expenses {
     background-color: #ffffff;
-    padding: 10px;
+    padding: 2px;
     border-radius: 8px;
     border: 1px solid #d3d3d3;
-    margin-top: 10px;
+    margin-top: 2px;
 }
 
 #toggle-expenses-btn {
