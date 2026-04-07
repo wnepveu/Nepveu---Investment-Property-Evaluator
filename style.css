@@ -217,3 +217,22 @@ footer {
 .info-icon:hover {
     background-color: #08163a;
 }
+header {
+    text-align: left;
+    padding: 25px 20px; /* aligns with container padding */
+    background-color: #0d214f;
+    color: white;
+    border-bottom: 2px solid #08163a;
+}
+
+header h1 {
+    font-size: 2rem;
+    margin-bottom: 5px;
+}
+
+header h2 {
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: #c9c9c9;
+    margin-top: 5px;
+}
