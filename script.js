@@ -1,53 +1,78 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Main calculate button
+
     document.getElementById("calculateBtn").addEventListener("click", calculate);
+    document.getElementById("toggle-expenses-btn").addEventListener("click", toggleDetails);
+    document.getElementById("help-icon").addEventListener("click", toggleHelp);
 
-    // Toggle detailed expense section
-    const btn = document.getElementById("toggle-expenses-btn");
-    const section = document.getElementById("detailed-expenses");
-
-    btn.addEventListener("click", () => {
-        if (section.style.display === "none") {
-            section.style.display = "block";
-            btn.textContent = "Hide Detailed Expenses";
-        } else {
-            section.style.display = "none";
-            btn.textContent = "Show Detailed Expenses";
-        }
-    });
-
-    // Listen for detailed expenses changing
-    ["taxes", "insurance", "maintenance"].forEach(id => {
-        let el = document.getElementById(id);
-        if (el) el.addEventListener("input", updateExpenseRatioFromDetails);
-    });
+    // Listen for changes in detailed expenses
+    ["taxes", "insurance", "maintenance", "management", "vacancy", "otherExp"]
+        .forEach(id => {
+            document.getElementById(id).addEventListener("input", updateExpenseRatioFromDetails);
+        });
 });
 
 /* -----------------------------
-   UPDATE EXPENSE RATIO BASED ON DETAILED INPUTS
+   TOGGLE DETAILED EXPENSES
+--------------------------------*/
+function toggleDetails() {
+    let box = document.getElementById("detailed-expenses");
+    let btn = document.getElementById("toggle-expenses-btn");
+
+    if (box.style.display === "none") {
+        box.style.display = "block";
+        btn.innerText = "Hide Detailed Expenses";
+    } else {
+        box.style.display = "none";
+        btn.innerText = "Show Detailed Expenses";
+    }
+}
+
+/* -----------------------------
+   HELP POPUP TOGGLE
+--------------------------------*/
+function toggleHelp() {
+    let popup = document.getElementById("help-popup");
+    popup.style.display = popup.style.display === "block" ? "none" : "block";
+}
+
+/* -----------------------------
+   UPDATE EXPENSE RATIO
 --------------------------------*/
 function updateExpenseRatioFromDetails() {
+
     let rent = parseFloat(document.getElementById("rent").value) || 0;
 
+    // Dollar values
     let taxes = parseFloat(document.getElementById("taxes").value) || 0;
     let insurance = parseFloat(document.getElementById("insurance").value) || 0;
-    let maintenancePct = parseFloat(document.getElementById("maintenance").value) || 0;
+    let other = parseFloat(document.getElementById("otherExp").value) || 0;
 
-    // Convert maintenance % -> monthly dollars
-    let maintenance = rent * (maintenancePct / 100);
+    // Percent values
+    let maintenance = (parseFloat(document.getElementById("maintenance").value) || 0) / 100;
+    let management = (parseFloat(document.getElementById("management").value) || 0) / 100;
+    let vacancy = (parseFloat(document.getElementById("vacancy").value) || 0) / 100;
 
-    let totalMonthlyExpenses = (taxes + insurance) / 12 + maintenance;
+    // Convert monthly rent to yearly for consistency
+    let annualRent = rent * 12;
 
-    let ratio = rent > 0 ? (totalMonthlyExpenses / rent) * 100 : 0;
+    let annualExpenses =
+        taxes +
+        insurance +
+        other +
+        (annualRent * maintenance) +
+        (annualRent * management) +
+        (annualRent * vacancy);
+
+    let ratio = annualRent > 0 ? (annualExpenses / annualRent) * 100 : 0;
 
     document.getElementById("expenseRatio").value = ratio.toFixed(2);
 }
 
 /* -----------------------------
-   MAIN CALCULATE FUNCTION
+   CALCULATE MAIN MODEL
 --------------------------------*/
 function calculate() {
-    // INPUTS
+
     let propertyValue = parseFloat(document.getElementById("propertyValue").value);
     let downPayment = parseFloat(document.getElementById("downPayment").value);
     let dpType = document.getElementById("dpType").value;
@@ -56,54 +81,52 @@ function calculate() {
     let rent = parseFloat(document.getElementById("rent").value);
     let expenseRatio = parseFloat(document.getElementById("expenseRatio").value) / 100;
 
-    // Convert down payment if percent
     if (dpType === "percent") {
         downPayment = propertyValue * (downPayment / 100);
     }
 
-    // LOAN AMOUNT & MORTGAGE
     let loanAmount = propertyValue - downPayment;
     let r = interestRate / 12;
     let n = loanTerm * 12;
+
     let mortgagePayment =
         loanAmount * (r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
 
-    // CASH FLOW & PERFORMANCE
     let expenses = rent * expenseRatio;
     let noi = rent - expenses;
+
     let monthlyCashFlow = noi - mortgagePayment;
     let annualCashFlow = monthlyCashFlow * 12;
     let cocReturn = (annualCashFlow / downPayment) * 100;
     let capRate = (noi * 12 / propertyValue) * 100;
 
-    // UPDATE RESULTS
     document.getElementById("loanAmount").innerText =
         loanAmount.toLocaleString("en-US", { style: "currency", currency: "USD" });
 
     document.getElementById("mortgagePayment").innerText =
         mortgagePayment.toLocaleString("en-US", { style: "currency", currency: "USD" });
 
-    let monthlyCashFlowEl = document.getElementById("monthlyCashFlow");
-    monthlyCashFlowEl.innerText =
+    let mcf = document.getElementById("monthlyCashFlow");
+    mcf.innerText =
         monthlyCashFlow.toLocaleString("en-US", { style: "currency", currency: "USD" });
-    monthlyCashFlowEl.style.color = monthlyCashFlow >= 0 ? "green" : "red";
+    mcf.style.color = monthlyCashFlow >= 0 ? "green" : "red";
 
     document.getElementById("cocReturn").innerText = cocReturn.toFixed(2) + "%";
     document.getElementById("capRate").innerText = capRate.toFixed(2) + "%";
 
-    // AMORTIZATION TABLE
-    let tableBody = document
-        .getElementById("amortTable")
-        .getElementsByTagName("tbody")[0];
+    // Amortization Table
+    let tableBody = document.getElementById("amortTable").querySelector("tbody");
     tableBody.innerHTML = "";
 
     let balance = loanAmount;
+
     for (let i = 1; i <= n; i++) {
         let interestPayment = balance * r;
         let principalPayment = mortgagePayment - interestPayment;
         let endingBalance = balance - principalPayment;
 
         let row = tableBody.insertRow();
+
         row.innerHTML = `
             <td>${i}</td>
             <td>${balance.toLocaleString("en-US", {style: "currency", currency: "USD"})}</td>
