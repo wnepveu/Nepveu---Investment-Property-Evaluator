@@ -42,23 +42,28 @@ function updateExpenseRatioFromDetails() {
 
     let rent = parseFloat(document.getElementById("rent").value) || 0;
 
-    // Dollar values
-    let taxes = parseFloat(document.getElementById("taxes").value) || 0;
-    let insurance = parseFloat(document.getElementById("insurance").value) || 0;
-    let other = parseFloat(document.getElementById("otherExp").value) || 0;
+    // Dollar values — allow blank inputs
+    let taxes = parseFloat(document.getElementById("taxes").value);
+    let insurance = parseFloat(document.getElementById("insurance").value);
+    let other = parseFloat(document.getElementById("otherExp").value);
 
-    // Percent values
-    let maintenance = (parseFloat(document.getElementById("maintenance").value) || 0) / 100;
-    let management = (parseFloat(document.getElementById("management").value) || 0) / 100;
-    let vacancy = (parseFloat(document.getElementById("vacancy").value) || 0) / 100;
+    // Percent values — allow blank inputs
+    let maintenance = parseFloat(document.getElementById("maintenance").value);
+    let management = parseFloat(document.getElementById("management").value);
+    let vacancy = parseFloat(document.getElementById("vacancy").value);
+
+    // Convert percentages to decimals, handle empty fields
+    maintenance = maintenance ? maintenance / 100 : 0;
+    management = management ? management / 100 : 0;
+    vacancy = vacancy ? vacancy / 100 : 0;
 
     // Convert monthly rent to yearly for consistency
     let annualRent = rent * 12;
 
     let annualExpenses =
-        taxes +
-        insurance +
-        other +
+        (taxes || 0) +
+        (insurance || 0) +
+        (other || 0) +
         (annualRent * maintenance) +
         (annualRent * management) +
         (annualRent * vacancy);
