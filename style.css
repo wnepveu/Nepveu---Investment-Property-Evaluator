@@ -245,3 +245,33 @@ footer {
         grid-template-columns: 1fr;
     }
 }
+.navbar {
+  width: 100%;
+  background: #111;
+  color: white;
+  padding: 15px 0;
+}
+
+.nav-container {
+  width: 90%;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.nav-links a:hover {
+  border-bottom: 2px solid white;
+}
