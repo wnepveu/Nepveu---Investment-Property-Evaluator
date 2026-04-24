@@ -1,3 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>William Nepveu - Investment Property Evaluator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
 <nav class="navbar">
   <div class="nav-container">
     <h2 class="logo">Property Evaluator</h2>
@@ -9,115 +20,131 @@
     </ul>
   </div>
 </nav>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>William Nepveu - Investment Property Evaluator</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <header>
-        <h1>William Nepveu’s Investment Property Evaluator</h1>
-        <h2>Analyze Real Estate Investments Instantly</h2>
-    </header>
 
-    <div class="container">
-        <!-- Sidebar Inputs -->
-        <div class="sidebar">
-            <label for="propertyValue">Property Value ($):</label>
-            <input type="number" id="propertyValue" value="300000">
+<header>
+  <h1>William Nepveu’s Investment Property Evaluator</h1>
+  <h2>Analyze Real Estate Investments Instantly</h2>
+</header>
 
-            <label for="downPayment">Down Payment:</label>
-            <input type="number" id="downPayment" value="20">
-            <select id="dpType">
-                <option value="percent">%</option>
-                <option value="dollar">$</option>
-            </select>
+<div class="container">
 
-            <label for="interestRate">Interest Rate (%):</label>
-            <input type="number" id="interestRate" value="6" step="0.01">
+  <div class="sidebar">
+    <label for="propertyValue">Property Value ($):</label>
+    <input type="number" id="propertyValue" value="300000">
 
-            <label for="loanTerm">Loan Term (Years):</label>
-            <input type="number" id="loanTerm" value="30">
+    <label for="downPayment">Down Payment:</label>
+    <input type="number" id="downPayment" value="20">
 
-            <label for="rent">Gross Monthly Rent ($):</label>
-            <input type="number" id="rent" value="2500">
+    <select id="dpType">
+      <option value="percent">%</option>
+      <option value="dollar">$</option>
+    </select>
 
-            <!-- Operating Expense Ratio WITH HELP -->
-            <label for="expenseRatio">
-                Operating Expense Ratio (%):
-                <span class="help-icon" id="help-icon">?</span>
-            </label>
-            <input type="number" id="expenseRatio" value="30">
+    <label for="interestRate">Interest Rate (%):</label>
+    <input type="number" id="interestRate" value="6" step="0.01">
 
-            <div id="help-popup" class="help-popup">
-                Enter an estimate of your total operating expenses as a percentage of rent.
-                If unknown, you can fill in Detailed Expenses at the bottom.
-            </div>
+    <label for="loanTerm">Loan Term (Years):</label>
+    <input type="number" id="loanTerm" value="30">
 
-            <button id="calculateBtn">Calculate</button>
-        </div>
+    <label for="rent">Gross Monthly Rent ($):</label>
+    <input type="number" id="rent" value="2500">
 
-        <!-- Results -->
-        <div class="results">
-            <h3>Investment Performance</h3>
-            <div class="output-grid">
-                <div class="output-item">
-                    Loan Amount: <span id="loanAmount">$0</span>
-                </div>
-                <div class="output-item">
-                    Mortgage Payment: <span id="mortgagePayment">$0</span>
-                </div>
-                <div class="output-item">
-                    Monthly Cash Flow: <span id="monthlyCashFlow">$0</span>
-                </div>
-                <div class="output-item">
-                    Cash-on-Cash Return: <span id="cocReturn">0%</span>
-                </div>
-                <div class="output-item">
-                    Cap Rate: <span id="capRate">0%</span>
-                </div>
-                <div class="output-item">
-                    Break-Even Rent: <span id="breakEvenRent">$0</span>
-                </div>
-            </div>
+    <label for="expenseRatio">
+      Operating Expense Ratio (%):
+      <span class="help-icon" id="help-icon">?</span>
+    </label>
 
-            <h3>Amortization Schedule</h3>
-            <div class="table-container">
-                <table id="amortTable">
-                    <thead>
-                        <tr>
-                            <th>Month</th>
-                            <th>Beginning Balance</th>
-                            <th>Payment</th>
-                            <th>Principal</th>
-                            <th>Interest</th>
-                            <th>Ending Balance</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            </div>
-        </div>
+    <input type="number" id="expenseRatio" value="30">
+
+    <div id="help-popup" class="help-popup">
+      Enter an estimate of your total operating expenses as a percentage of rent.
+      If unknown, you can fill in Detailed Expenses at the bottom.
     </div>
 
-    <footer>
-        <p>William Nepveu — FIN 351 | Spring 2026</p>
-    </footer>
+    <button id="calculateBtn">Calculate</button>
+  </div>
 
-    <!-- Toggle Detailed Expenses -->
+  <div class="results">
+    <h3>Investment Performance</h3>
+
+    <div class="output-grid">
+      <div class="output-item">
+        Loan Amount: <span id="loanAmount">$0</span>
+      </div>
+
+      <div class="output-item">
+        Mortgage Payment: <span id="mortgagePayment">$0</span>
+      </div>
+
+      <div class="output-item">
+        Monthly Cash Flow: <span id="monthlyCashFlow">$0</span>
+      </div>
+
+      <div class="output-item">
+        Cash-on-Cash Return: <span id="cocReturn">0%</span>
+      </div>
+
+      <div class="output-item">
+        Cap Rate: <span id="capRate">0%</span>
+      </div>
+
+      <div class="output-item">
+        Break-Even Rent: <span id="breakEvenRent">$0</span>
+      </div>
+    </div>
+
+    <h3>Amortization Schedule</h3>
+
+    <div class="table-container">
+      <table id="amortTable">
+        <thead>
+          <tr>
+            <th>Month</th>
+            <th>Beginning Balance</th>
+            <th>Payment</th>
+            <th>Principal</th>
+            <th>Interest</th>
+            <th>Ending Balance</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<div class="page-wrapper">
+  <div class="card">
     <button id="toggle-expenses-btn">Show Detailed Expenses</button>
-    <div id="detailed-expenses" style="display:none; margin-top:15px;">
-        <label>Property Taxes ($/year): <input type="number" id="taxes" placeholder="Enter amount"></label><br>
-        <label>Insurance ($/year): <input type="number" id="insurance" placeholder="Enter amount"></label><br>
-        <label>Maintenance (%): <input type="number" id="maintenance" placeholder="Enter %"></label><br>
-        <label>Property Management (%): <input type="number" id="management" placeholder="Enter %"></label><br>
-        <label>Vacancy (%): <input type="number" id="vacancy" placeholder="Enter %"></label><br>
-        <label>Other Expenses ($): <input type="number" id="otherExp" placeholder="Enter amount"></label>
-    </div>
 
-    <script src="script.js"></script>
+    <div id="detailed-expenses" style="display:none; margin-top:15px;">
+      <label>Property Taxes ($/year):</label>
+      <input type="number" id="taxes" placeholder="Enter amount">
+
+      <label>Insurance ($/year):</label>
+      <input type="number" id="insurance" placeholder="Enter amount">
+
+      <label>Maintenance (%):</label>
+      <input type="number" id="maintenance" placeholder="Enter %">
+
+      <label>Property Management (%):</label>
+      <input type="number" id="management" placeholder="Enter %">
+
+      <label>Vacancy (%):</label>
+      <input type="number" id="vacancy" placeholder="Enter %">
+
+      <label>Other Expenses ($):</label>
+      <input type="number" id="otherExp" placeholder="Enter amount">
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>William Nepveu — FIN 351 | Spring 2026</p>
+</footer>
+
+<script src="script.js"></script>
+
 </body>
 </html>
