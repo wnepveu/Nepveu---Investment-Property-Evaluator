@@ -275,3 +275,9 @@ footer {
 .nav-links a:hover {
   border-bottom: 2px solid white;
 }
+.profile-pic {
+  width: 200px;
+  border-radius: 12px;
+  display: block;
+  margin-bottom: 20px;
+}
